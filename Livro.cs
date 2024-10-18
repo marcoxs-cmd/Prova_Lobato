@@ -11,6 +11,7 @@ public class Livro
     public int? Paginas { get; set; }
     public Autor Autor { get; set; }
     public ICollection<LivroGenero> Generos { get; set; }
+    public int Estoque { get; set; } 
 }
 
 public class LivroConfiguration : IEntityTypeConfiguration<Livro>

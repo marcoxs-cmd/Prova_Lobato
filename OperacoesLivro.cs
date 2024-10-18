@@ -20,6 +20,7 @@ public static class OperacoesLivro
         var autorid = Convert.ToInt32(Console.ReadLine());
         var autor = db.Autor.First(p => p.AutorID == autorid);
         livro.Autor = autor;
+        livro.Estoque = 0;
         db.Livro.Add(livro);
         db.SaveChanges();
         Console.WriteLine("Livro adicionado com sucesso!");
@@ -30,13 +31,21 @@ public static class OperacoesLivro
         var db = new AplicacaoDbContext();
         var livros = db.Livro
             .Include(p => p.Autor)
-            .ThenInclude(p => p.Endereco);
-        Console.WriteLine("ISBN - Título - Páginas - Autor - UFdoAutor - Gênero");
+            .ThenInclude(p => p.Endereco)
+            .Include(p => p.Generos)
+            .ThenInclude(g => g.Genero);
+        Console.WriteLine("ISBN - Título - Páginas - Autor - UFdoAutor - Estoque - Gênero");
         foreach (var livro in livros)
         {
-            Console.WriteLine($"{livro.ISBN}, {livro.Titulo}, " +
-                              $"{livro.Paginas}, {livro.Autor.Nome}, " +
-                              $"{livro.Autor.Endereco.UF}");
+            Console.Write($"{livro.ISBN} - {livro.Titulo}, " +
+                          $"{livro.Paginas} - {livro.Autor.Nome} - " +
+                          $"{livro.Autor.Endereco.UF} - {livro.Estoque} livro(s) - ");
+            
+            foreach (var livroGenero in livro.Generos)
+            {
+                Console.Write($"{livroGenero.Genero.Nome}; ");
+            }
+            Console.WriteLine();
         }
     }
 
@@ -54,7 +63,7 @@ public static class OperacoesLivro
         }
         string t;
         Console.WriteLine($"Título do livro: {livro.Titulo}");
-        t = Console.ReadLine().Trim();
+        t = Console.ReadLine();
         if (t != "")
         {
             livro.Titulo = t;
@@ -65,10 +74,10 @@ public static class OperacoesLivro
         {
             livro.Paginas = Convert.ToInt32(t);
         }
-
         db.SaveChanges();
+        Console.WriteLine("Livro alterado com sucesso!");
     }
-
+    
     public static void Remover()
     {
         using var db = new AplicacaoDbContext();
@@ -83,5 +92,57 @@ public static class OperacoesLivro
         }
         db.Livro.Remove(livro);
         db.SaveChanges();
+        Console.WriteLine("Livro removido com sucesso!");
     }
+    
+    public static void Comprar()
+        {
+                using var db = new AplicacaoDbContext();
+                Console.WriteLine("Selecione o número do livro a partir da lista");
+                OperacoesLivro.Listar();
+                var livroid = Console.ReadLine();
+                var livro = db.Livro.Find(livroid);
+                if (livro == null)
+                {
+                    Console.WriteLine("Selecione um livro da lista!");
+                    return;
+                }
+                int t;
+                Console.WriteLine($"Quantos livros irá comprar?");
+                t = Convert.ToInt32(Console.ReadLine().Trim());
+                if (t != 0)
+                   {
+                     livro.Estoque += t;
+                   }
+                db.SaveChanges();
+                Console.WriteLine("Livro(s) comprado(s) com sucesso!");
+        }
+        
+    public static void Vender()
+            {
+                 using var db = new AplicacaoDbContext();
+                 Console.WriteLine("Selecione o número do livro a partir da lista");
+                 OperacoesLivro.Listar();
+                 var livroid = Console.ReadLine();
+                 var livro = db.Livro.Find(livroid);
+                 if (livro == null)
+                  {
+                     Console.WriteLine("Selecione um livro da lista!");
+                     return;
+                  }
+                 int t;
+                 Console.WriteLine($"Quantos livros deseja vender?");
+                 t = Convert.ToInt32(Console.ReadLine().Trim());
+                 if (t < livro.Estoque)
+                    { 
+                        livro.Estoque -= t;
+                        db.SaveChanges();
+                        Console.WriteLine("Livro(s) vendido(s) com sucesso!");
+                    }
+                 else 
+                    {
+                        Console.WriteLine($"Infelizmente, não temos a quantidade desejada no estoque...");
+                        return;
+                    }
+            }
 }

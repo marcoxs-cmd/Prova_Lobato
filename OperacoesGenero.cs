@@ -29,13 +29,14 @@ public class OperacoesGenero
             return;
         }
         string t;
-        Console.WriteLine($"Título do livro: {genero.Nome}");
+        Console.WriteLine($"Gênero: {genero.Nome}");
         t = Console.ReadLine().Trim();
         if (t != "")
         {
             genero.Nome = t;
         }
         db.SaveChanges();
+        Console.WriteLine("Gênero alterado com sucesso!");
     }
 
     public static void Listar()
@@ -45,7 +46,7 @@ public class OperacoesGenero
         Console.WriteLine("ID - Nome");
         foreach (var genero in generos)
         {
-            Console.WriteLine($"{genero.GeneroID}, {genero.Nome}");
+            Console.WriteLine($"{genero.GeneroID} - {genero.Nome}");
         }
     }
 
@@ -63,17 +64,6 @@ public class OperacoesGenero
         }
         db.Genero.Remove(genero);
         db.SaveChanges();
-    }
-
-    public static void ListarC()
-    {
-        using var db = new AplicacaoDbContext();
-        var disf = db.LivroGenero.
-            Include(p => p.Livro);
-        Console.WriteLine("Genero - Livro");
-        foreach (var dif in disf)
-        {
-            Console.WriteLine($"{dif.Genero}, {dif.Livro}");
-        }
+        Console.WriteLine("Gênero removido com sucesso!");
     }
 }

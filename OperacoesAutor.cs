@@ -29,7 +29,7 @@ public static class OperacoesAutor
         db.Autor.Add(autor);
         db.Endereco.Add(endereco);
         db.SaveChanges();
-        Console.WriteLine("Autor adicionado!");
+        Console.WriteLine("Autor adicionado com sucesso!");
     }
 
     public static void Listar()
@@ -42,9 +42,9 @@ public static class OperacoesAutor
         Console.WriteLine("Nome - Data de Nascimento - Endereço");
         foreach (var autor in autores)
         {
-            Console.WriteLine($"{autor.Nome}, {autor.DataNascimento.ToString()}," +
-                              $" {autor.Endereco.Logradouro}, {autor.Endereco.Cidade} " +
-                              $"({autor.Endereco.UF}), {autor.Endereco.CEP}");
+            Console.WriteLine($"{autor.Nome} - {autor.DataNascimento.ToString()} -" +
+                              $" {autor.Endereco.Logradouro} - {autor.Endereco.Cidade} -" +
+                              $" ({autor.Endereco.UF}) - {autor.Endereco.CEP}");
         }
     }
     public static void ListarComChave()
@@ -59,7 +59,7 @@ public static class OperacoesAutor
         Console.WriteLine("ID - Nome");
         foreach (var autor in autores)
         {
-            Console.WriteLine($"{autor.AutorID}, {autor.Nome}");
+            Console.WriteLine($"{autor.AutorID} - {autor.Nome}");
         }
     }
 
@@ -104,6 +104,7 @@ public static class OperacoesAutor
         // Console.Write("CEP: ");
         // endereco.CEP = Console.ReadLine();
         db.SaveChanges();
+        Console.WriteLine("Autor alterado com sucesso!");
     }
 
     public static void Remover()
@@ -121,6 +122,6 @@ public static class OperacoesAutor
 
         db.Autor.Remove(autor);
         db.SaveChanges();
-
+        Console.WriteLine("Autor removido com sucesso!");
     }
 }

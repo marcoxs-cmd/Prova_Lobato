@@ -111,6 +111,9 @@ namespace EF.Exemplo6.Migrations
                     b.Property<int>("AutorID")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Estoque")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("Paginas")
                         .HasColumnType("integer");
 

@@ -12,15 +12,14 @@ while (true)
     Console.WriteLine("21. Cadastrar livro");
     Console.WriteLine("22. Alterar livro");
     Console.WriteLine("23. Remover livro");
-    Console.WriteLine("24. Listar livros com estoque");
+    Console.WriteLine("24. Listar livros");
     Console.WriteLine("31. Cadastrar gênero");
     Console.WriteLine("32. Vincular gênero");
     Console.WriteLine("33. Alterar gênero");
     Console.WriteLine("34. Remover gênero");
     Console.WriteLine("35. Listar gêneros");
-    Console.WriteLine("41. Vender livro(s)"); //FAZER
-    Console.WriteLine("42. Comprar livro(s)");//FAZER
-    Console.WriteLine("43. TESTE"); //CORRIGIR
+    Console.WriteLine("41. Vender livro(s)");
+    Console.WriteLine("42. Comprar livro(s)");
     Console.WriteLine("0. Sair");
     Console.Write("Digite sua opção: ");
     var opcao = Console.ReadLine().Trim();
@@ -66,11 +65,10 @@ while (true)
             OperacoesGenero.Listar();
             break;
         case "41": // Vender livro(s)
+            OperacoesLivro.Vender();
             break;
         case "42": // Comprar livro(s)
-            break;
-        case "43": // Teste de variavel
-            OperacoesGenero.ListarC();
+            OperacoesLivro.Comprar();
             break;
         case "0":
             break;

@@ -28,7 +28,6 @@ public class OperacoesLivroGenero
         livrogenero.Livro = livro;
         db.LivroGenero.Add(livrogenero);
         db.SaveChanges();
-        Console.WriteLine("Livro adicionado com sucesso!");
-        
+        Console.WriteLine("Vinculo adquirido com sucesso!");
     }
 }
