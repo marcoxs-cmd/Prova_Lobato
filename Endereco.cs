@@ -12,6 +12,8 @@ public class Endereco
     public string CEP { get; set; }
     public int AutorID { get; set; }
     public Autor Autor { get; set; }
+    
+    //public virtual Autor Autor { get; set; }
 }
 
 public class EnderecoConfiguration : IEntityTypeConfiguration<Endereco>

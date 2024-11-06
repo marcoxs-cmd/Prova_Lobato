@@ -13,7 +13,7 @@ public static class OperacoesAutor
         Console.Write("Data de nascimento (yyyy-mm-dd): ");
         autor.DataNascimento = DateOnly.
             ParseExact(Console.ReadLine(),
-                "yyyy-mm-dd", CultureInfo.InvariantCulture);
+                "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
         var endereco = new Endereco();
         Console.Write("Logradouro: ");
@@ -36,6 +36,7 @@ public static class OperacoesAutor
     {
         using var db = new AplicacaoDbContext();
         // desligando acompanhamento de objetos NA CONSULTA
+        // Eager loading de propriedades relacionadas
         var autores = db.Autor
             .AsNoTracking().
             Include(p => p.Endereco);
@@ -62,6 +63,41 @@ public static class OperacoesAutor
             Console.WriteLine($"{autor.AutorID} - {autor.Nome}");
         }
     }
+    
+    // public static void ListarExplict()
+    // {
+    //     using var db = new AplicacaoDbContext();
+    //     // desligando acompanhamento de objetos NA CONSULTA
+    //     // Explicit loading de propriedades relacionadas
+    //     var autores = db.Autor.ToList();
+    //     Console.WriteLine("Nome, DataNascimento, Endereço");
+    //     foreach (var autor in autores)
+    //     {
+    //         // Se a entidade Endereco associada à entidade Autor atual
+    //         // não estiver carregada...
+    //         if (!db.Entry(autor).Reference(p  => p.Endereco).IsLoaded)
+    //             // Faça a carga dela...
+    //             db.Entry(autor).Reference(p => p.Endereco).Load();
+    //         Console.WriteLine($"{autor.Nome}, {autor.DataNascimento.ToString()}," +
+    //                           $" {autor.Endereco.Logradouro}, {autor.Endereco.Cidade} " +
+    //                           $"({autor.Endereco.UF}), {autor.Endereco.CEP}");
+    //     }
+    // }
+    // public static void ListarLazy()
+    // {
+    //     using var db = new AplicacaoDbContext();
+    //     // desligando acompanhamento de objetos NA CONSULTA
+    //     // Lazy loading de propriedades relacionadas
+    //     var autores = db.Autor.ToList();
+    //     Console.WriteLine("Nome, DataNascimento, Endereço");
+    //     foreach (var autor in autores)
+    //     {
+    //         Console.WriteLine($"{autor.Nome}, {autor.DataNascimento.ToString()}," +
+    //                           $" {autor.Endereco.Logradouro}, {autor.Endereco.Cidade} " +
+    //                           $"({autor.Endereco.UF}), {autor.Endereco.CEP}");
+    //     }
+    // }
+
 
     public static void Alterar()
     {
@@ -92,7 +128,7 @@ public static class OperacoesAutor
         if (t != "")
         {
             autor.DataNascimento = DateOnly.ParseExact(t,
-                "yyyy-mm-dd", CultureInfo.InvariantCulture);
+                "yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
         // var endereco = new Endereco();
         // Console.Write("Logradouro: ");

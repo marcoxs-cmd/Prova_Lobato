@@ -21,6 +21,15 @@ public class AplicacaoDbContext : DbContext
                                  "Username=biblioteca;" +
                                  "Password=123456;" +
                                  "Database=biblioteca;");
+        
+        // var logSql = new LoggerFactory();
+        // logSql.AddProvider(new MeuLogProvider());
+        // optionsBuilder.UseLoggerFactory(logSql);
+        // optionsBuilder.UseLazyLoadingProxies()
+        //     .UseNpgsql(@"Host=192.168.56.101;" +
+        //                "Username=biblioteca;" +
+        //                "Password=123456;" +
+        //                "Database=biblioteca;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

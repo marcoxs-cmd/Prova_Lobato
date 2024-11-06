@@ -12,6 +12,9 @@ public class Livro
     public Autor Autor { get; set; }
     public ICollection<LivroGenero> Generos { get; set; }
     public int Estoque { get; set; } 
+    
+    //public virtual Autor Autor { get; set; }
+    //public virtual ICollection<LivroGenero> Generos { get; set; }
 }
 
 public class LivroConfiguration : IEntityTypeConfiguration<Livro>

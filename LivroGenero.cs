@@ -9,6 +9,9 @@ public class LivroGenero
     public int GeneroID { get; set; }
     public Livro Livro { get; set; }
     public Genero Genero { get; set; }
+    
+    // public virtual Livro Livro { get; set; }
+    // public virtual Genero Genero { get; set; }
 }
 
 public class LivroGeneroConfiguration : IEntityTypeConfiguration<LivroGenero>

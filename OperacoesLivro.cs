@@ -110,10 +110,15 @@ public static class OperacoesLivro
                 int t;
                 Console.WriteLine($"Quantos livros irá comprar?");
                 t = Convert.ToInt32(Console.ReadLine().Trim());
-                if (t != 0)
+                if (t > 0)
                    {
                      livro.Estoque += t;
                    }
+                else
+                {
+                    Console.WriteLine($"É necessário que o número desejado de compras, seja um valor positivo!");
+                    return;
+                }
                 db.SaveChanges();
                 Console.WriteLine("Livro(s) comprado(s) com sucesso!");
         }
